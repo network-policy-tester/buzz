@@ -1,0 +1,43 @@
+html {
+  height: 90%;
+  }
+
+body {
+  font-family: Verdana, Arial, Times New Roman;
+  font-size:24px;
+  height: 100%;
+  }
+
+#cy {
+  height: 90%;
+  width: 100%;
+  float: left;
+  position: relative;
+  top: 10px;
+  left: 0px;
+  border: 1px solid #aaa;
+  border-radius:5px;
+  -webkit-border-radius:5px;
+  padding: 0px;
+  display: block;
+  z-index: 1;
+  }
+
+.message {
+  border: 1px solid #a00;
+  padding: 4px;
+  width: 90%;
+  border-radius:5px;
+  text-align: left;
+  }
+
+.customButtons{
+  font-family: Verdana, Arial, Times New Roman;
+  font-size:18px;
+  }
+
+#toolbar {
+   padding: 4px;
+   width: 90%;
+   text-align: left;
+  }
