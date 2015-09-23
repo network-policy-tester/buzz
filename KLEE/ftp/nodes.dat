@@ -1,0 +1,17 @@
+#type	index	port_number (assume each device has exactly one port, except switches that can have multipe ports)
+fw	0	11
+ips	0	7
+proxy	0	3
+h	0	0
+h	1	13
+h	2	15
+s	0	1
+s	0	2
+s	0	4
+s	1	5
+s	1	6
+s	1	8
+s	2	9
+s	2	10
+s	2	12
+s	2	14
