@@ -1,0 +1,58 @@
+#!/bin/sh
+
+
+#./flowtag_control tag add -tag 0 -next 3
+./flowtag_control tag clear
+./flowtag_control tag add -tag 12 -srcIP 10.0.0.1 -next 4
+./flowtag_control tag add -tag 16 -srcIP 10.0.0.2 -next 4
+./flowtag_control tag add -tag 20 -srcIP 10.1.0.1 -next 4
+
+
+./flowtag_control tag add -tag 24 -srcIP 10.0.0.1 -next 5
+./flowtag_control tag add -tag 28 -srcIP 10.0.0.2 -next 5
+./flowtag_control tag add -tag 32 -srcIP 10.1.0.1 -next 5
+
+#./flowtag_control tag add -tag 36 -srcIP 172.16.0.1  -next 4
+#./flowtag_control tag add -tag 40 -srcIP 172.16.0.1  -next 1
+#./flowtag_control tag add -tag 44 -srcIP 172.16.0.1  -next 2
+./flowtag_control tag add -tag 36 -srcIP 192.168.0.1   -next 4
+./flowtag_control tag add -tag 40 -srcIP 192.168.0.1   -next 1
+./flowtag_control tag add -tag 44 -srcIP 192.168.0.1   -next 2
+
+
+./flowtag_control out clear
+# For Nat
+./flowtag_control out add -mid 1 -state 0 -preTag 12 -newTag 12
+./flowtag_control out add -mid 1 -state 0 -preTag 16 -newTag 16
+./flowtag_control out add -mid 1 -state 0 -preTag 20 -newTag 20
+
+# For LB
+./flowtag_control out add -mid 2 -state 0 -preTag 12 -newTag 24
+./flowtag_control out add -mid 2 -state 0 -preTag 16 -newTag 28
+./flowtag_control out add -mid 2 -state 0 -preTag 20 -newTag 32
+
+# For Squid
+./flowtag_control out add -mid 3 -state 0 -preTag 12 -newTag 36
+./flowtag_control out add -mid 3 -state 1 -preTag 12 -newTag 36
+./flowtag_control out add -mid 3 -state 0 -preTag 16 -newTag 40
+./flowtag_control out add -mid 3 -state 1 -preTag 16 -newTag 40
+./flowtag_control out add -mid 3 -state 0 -preTag 20 -newTag 44
+./flowtag_control out add -mid 3 -state 1 -preTag 20 -newTag 44
+
+# For FW (Nothing, don't generate any tag)
+
+
+
+./flowtag_control mb clear
+
+# NAT1
+#./flowtag_control mb add -mbid 1 -swid 10 -type NAT
+
+# LB
+#./flowtag_control mb add -mbid 2 -swid 11 -type NON_CONSUME
+
+# Proxy
+./flowtag_control mb add -mbid 3 -swid 10 -type NON_CONSUME
+
+# IDS
+./flowtag_control mb add -mbid 4 -swid 11 -type NON_CONSUME
