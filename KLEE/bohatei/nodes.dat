@@ -1,7 +1,0 @@
-#type	index	port_number (assume each device has exactly one port, except switches that can have multipe ports)
-bohateiips	0	3
-h	0	0
-h	1	5
-s	0	1
-s	0	2
-s	0	4

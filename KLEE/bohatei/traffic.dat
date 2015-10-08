@@ -1,5 +1,0 @@
-#id	srcIP	dstIP	srcPort	dstPort	proto	isHttp	getObj	rspObj	tag	tcpSYN	tcpACK	tcpFIN	connId	frmClnt	timeout	dropped	init_port_num
-1	0	1	1000	1001	1	0	0	0	0	1	0	0	0	1	0	0	0
-2	0	1	1000	1001	1	0	0	0	0	1	0	0	0	1	0	0	0
-3	0	1	1000	1001	1	0	0	0	0	1	0	0	0	1	0	0	0
-4	0	1	1000	1001	1	0	0	0	0	1	0	0	0	1	0	0	0
