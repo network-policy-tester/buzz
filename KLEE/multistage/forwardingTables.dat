@@ -1,5 +1,7 @@
 #swIndx inPort srcIP   dstIP   tag	outPort		//for now we only forward based on ip and a tag field (used only for proxy: 0 (miss), 1 (hit))
 0	1	0	1	0	2
-0	2	0	1	7	4
-1	5	0	1	7	6
-1	6	0	1	8	8
+0	2	0	1	9	4
+0	2	0	1	10	4
+1	5	0	1	9	8
+1	5	0	1	10	6
+1	6	0	1	11	8

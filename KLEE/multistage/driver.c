@@ -168,13 +168,15 @@ locatedPacket heavyIPSProc(int ipsIndex, locatedPacket inPkt){
 	//first we set the outpacket to be the same as in packet
 	locatedPacket outPkt;
 	outPkt = inPkt;
-	outPkt.packet.tag = HEAVYIPS_PROCESSED_TAG;//indicates that the packet is processed by the IPS
+	outPkt.packet.tag = HEAVYIPS_NORMAL_TAG;//indicates that the packet is processed by the IPS
 	
 	// TODO add to port list
 	outPkt.port.num = hipsPorts[ipsIndex];
 	if (inPkt.packet.signature == 1){
 		printf("WOOT drop\n");	
+		outPkt.packet.tag = HEAVYIPS_BADSIG_TAG;//indicates that the packet is processed by the IPS
 		outPkt.packet.dropped = 1;
+		hips_badsig = 1;
 		return outPkt;
 	}
 	printf("WOOT pass\n");	
@@ -186,7 +188,7 @@ locatedPacket lightIPSProc(int ipsIndex, locatedPacket inPkt){
 	//first we set the outpacket to be the same as in packet
 	locatedPacket outPkt;
 	outPkt = inPkt;
-	outPkt.packet.tag = LIGHTIPS_PROCESSED_TAG;//indicates that the packet is processed by the IPS
+	outPkt.packet.tag = LIGHTIPS_NORMAL_TAG;//indicates that the packet is processed by the IPS
 	
 	// TODO add to port list
 	outPkt.port.num = ipsPorts[ipsIndex];
@@ -198,7 +200,8 @@ locatedPacket lightIPSProc(int ipsIndex, locatedPacket inPkt){
         		ipsDiffConnStates[ipsIndex][inPkt.packet.srcIP] = Diff_1;
 			printf("in this WOOT1 case, ipsDiffConnStates[%d][%d] just became %d\n",ipsIndex,inPkt.packet.srcIP, ipsDiffConnStates[ipsIndex][inPkt.packet.srcIP]);
 			if (DIFF_THRESHOLD == 1)
-				outPkt.packet.dropped = 1;
+				outPkt.packet.tag = LIGHTIPS_BADCONN_TAG;//indicates that the packet is processed by the IPS
+				//outPkt.packet.dropped = 1;
 			return outPkt;
 		}
 	}
@@ -211,7 +214,8 @@ locatedPacket lightIPSProc(int ipsIndex, locatedPacket inPkt){
 			printf("in this WOOT2 case, ipsDiffConnStates[%d][%d] just became %d\n",ipsIndex,inPkt.packet.srcIP, ipsDiffConnStates[ipsIndex][inPkt.packet.srcIP]);
 
 			if (DIFF_THRESHOLD == 2)
-				outPkt.packet.dropped = 1;
+				outPkt.packet.tag = LIGHTIPS_BADCONN_TAG;//indicates that the packet is processed by the IPS
+				//outPkt.packet.dropped = 1;
 			return outPkt;
 		}
 	}
@@ -224,7 +228,8 @@ locatedPacket lightIPSProc(int ipsIndex, locatedPacket inPkt){
 			printf("in this WOOT2 case, ipsDiffConnStates[%d][%d] just became %d\n",ipsIndex,inPkt.packet.srcIP, ipsDiffConnStates[ipsIndex][inPkt.packet.srcIP]);
 
 			if (DIFF_THRESHOLD == 3)
-				outPkt.packet.dropped = 1;
+				outPkt.packet.tag = LIGHTIPS_BADCONN_TAG;//indicates that the packet is processed by the IPS
+				//outPkt.packet.dropped = 1;
 			return outPkt;
 		}
 	}
@@ -501,6 +506,8 @@ int main(int argc, char *argv[]){
     FILE *nodesFile = fopen("nodes.dat","r");
     FILE *linksFile = fopen("links.dat","r");
     FILE *forwardingTablesFile = fopen("forwardingTables.dat","r");
+
+    hips_badsig = 0;
 
 /*
 	if (trafficFile == 0){
@@ -935,7 +942,8 @@ int main(int argc, char *argv[]){
 	}
 
 	
-	klee_assert(ipsDiffConnStates[0][0] != 3);
+	// klee_assert(ipsDiffConnStates[0][0] != 3);
+	klee_assert(hips_badsig !=1);
 	// klee_assert(ipsConnStates[0][0] != 1);
 //} // if false
 

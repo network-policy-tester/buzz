@@ -20,6 +20,10 @@
 #define LIGHTIPS_PROCESSED_TAG 7//to indicate packet has been processed by LightIIPS
 #define HEAVYIPS_PROCESSED_TAG 8//to indicate packet has been processed by LightIIPS
 
+#define LIGHTIPS_NORMAL_TAG 9//to indicate packet has been processed by LightIIPS
+#define LIGHTIPS_BADCONN_TAG 10//to indicate packet has been processed by LightIIPS
+#define HEAVYIPS_NORMAL_TAG 11//to indicate packet has been processed by LightIIPS
+#define HEAVYIPS_BADSIG_TAG 12//to indicate packet has been processed by LightIIPS
 //switch forwarding rules (given by forwardingTables.dat)
 int nextHop[MAX_NO_OF_NETWIDE_PORTS][MAX_NO_OF_NODES][MAX_NO_OF_NODES][MAX_NO_OF_TAGS];
 
@@ -29,6 +33,9 @@ int proxyPorts[MAX_NO_OF_PROXIES];
 int ipsPorts[MAX_NO_OF_IPSES];
 int hipsPorts[MAX_NO_OF_IPSES];
 int hostPorts[MAX_NO_OF_HOSTS];//assuming the IP of each host is also its index
+
+//
+int hips_badsig = 0;
 
 //packet-related values
 #define TRAFFIC_FILE_NO_OF_FIELDS 19
