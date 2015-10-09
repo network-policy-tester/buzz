@@ -39,7 +39,7 @@ addMbFSM = function(idstr){
   var model = idstr.split("_");
   var i = 0;
   //if ((model[0].toString()).equals("FW")){
-  alert(model[0]);
+  //alert(model[0]);
   // FW model  
   if (model[0] == "FW"){
     //alert("FW");
@@ -318,7 +318,7 @@ addMbFSM = function(idstr){
       "data" : {
         "id" : idstr+"DiffCount>0",
         "parent" : idstr,
-        "label" : "bad_conn>=10",
+        "label" : "bad_conn>=3",
       },
              position: {
                 x: getRandomInt(100,800),
@@ -328,7 +328,7 @@ addMbFSM = function(idstr){
       "data" : {
         "id" : idstr+"DiffCount=0",
         "parent" : idstr,
-        "label" : "!(bad_conn>=10)",
+        "label" : "!(bad_conn>=3)",
       },
              position: {
                 x: getRandomInt(100,800),
@@ -337,7 +337,7 @@ addMbFSM = function(idstr){
     }, {group: "edges",
       "data" : {
         "id" : idstr+"DiffCount=0"+idstr+"DiffCount>0",
-        "label" : "bad_conn>=10",
+        "label" : "bad_conn>=3",
         "source" : idstr+"DiffCount=0",
         "target" : idstr+"DiffCount>0",
       }
@@ -480,7 +480,7 @@ readMultipleFiles = function (evt) {
             r.onload = (function (f) {
                 return function (e) {
                     var contents = e.target.result;
-                    alert(contents);
+                    //alert(contents);
                 };
             })(f);
             r.readAsText(f);
@@ -541,12 +541,13 @@ $(document).ready(function() {
         //'content': 'data(label)',
         'padding-top': '10px',
         'padding-left': '10px',
-    'background-color': 'green',
+        'background-color': 'green',
         'padding-bottom': '10px',
         'padding-right': '10px',
-    'text-valign': 'top',
+        'text-color': 'red',
+        'text-valign': 'bottom',
         'text-halign': 'center',
-    'shape': 'roundrectangle'
+        'shape': 'rectangle'
       }
     },
     {
@@ -554,7 +555,8 @@ $(document).ready(function() {
       css: {
         'content': 'data(label)',
         'width': 1,
-        'line-color': 'black',
+        'text-color': 'red',
+        'line-color': 'grey',
         "target-arrow-shape" : "triangle"
       }
     },
